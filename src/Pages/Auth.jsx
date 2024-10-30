@@ -4,6 +4,7 @@ import { auth } from '../firebase';
 import useAuthStore from '../store/authStore';
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import google from "../assets/google.png"
 
 const GoogleLogin = () => {
     const navigate = useNavigate();
@@ -75,12 +76,12 @@ const GoogleLogin = () => {
   return (
    <div className='flex md:gap-32 gap-6 md:text-2xl text-lg '>
 
-   <div className="group mx-auto mt-16 w-fit rounded-full bg-richblack-800 p-1 font-bold text-richblack-200 drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] transition-all duration-200 hover:scale-95 hover:drop-shadow-none">
-   <div
+   <div className="group mx-auto  w-fit rounded-full bg-richblack-800 p-1 font-bold text-richblack-200 drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] transition-all duration-200 hover:scale-95 hover:drop-shadow-none">
+ <div
         className="flex flex-row items-center gap-2 rounded-full px-10 py-[5px] transition-all duration-200 group-hover:bg-richblack-900"
         onClick={handleGoogleLogin}>
-       <FaGoogle className='text-blue-600'/>
-       <button  >Login with Google</button>
+       <img src={google} className='w-[40px]'/>
+       <button  className='text-white'>Login with Google</button>
       </div> 
    </div>
      

@@ -13,9 +13,9 @@ const Homepage = () => {
     
     <div className='text-center 
     text-xl md:text-3xl font-bold  text-white'>
-    <h1>Welcome to <span className="bg-gradient-to-b from-[#f0ff1f]  to-[#ffb8a6] text-transparent bg-clip-text font-bold">Event Manager</span> !</h1>
+    <h1>Welcome to <span className="bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text font-bold">Event Manager</span> !</h1>
  
-    <p>To access the events, login with your <span className="bg-gradient-to-b from-[#f0ff1f]  to-[#ffb8a6] text-transparent bg-clip-text font-bold">Google Account.</span></p>
+    <p>To access the events, login with your <span className="bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text font-bold">Google Account.</span></p>
 
     </div>
 

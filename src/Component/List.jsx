@@ -49,8 +49,8 @@ const handleUpdate=()=>{
 
     
   return (
-    <div className='text-yellow-100    flex flex-col border-2 border-pure-greys-400 rounded-lg p-3 gap-10 md:!max-w-[50%] !items-center md:!justify-center'>
-        <h1 className='md:text-4xl text-3xl  '>Scheduled Events</h1>
+    <div className='text--100    flex flex-col border-2 border-pure-greys-400 rounded-lg p-3 gap-10 md:!max-w-[50%] !items-center md:!justify-center'>
+        <h1 className='md:text-4xl text-3xl text-white '>Scheduled <span className='bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text '>Events</span></h1>
         <div className='flex justify-center items-center gap-3'>
         {/* <TfiWrite className=' text-5xl hover:scale-110 cursor-pointer'/> */}
         {/* <p>Click to schedule event</p> */}
@@ -61,9 +61,9 @@ const handleUpdate=()=>{
         {
         events?.sort((a, b) => new Date(a.startTime) - new Date(b.startTime)).map((event)=>(
 
-            <div key={event._id} className='flex flex-col justify-center items-center border rounded-lg pt-10 p-4 relative z-2 min-w-full '>
-                <div className='text-xl'>{event.title}</div>
-                <div className='min-w-full'>
+            <div key={event._id} className='flex flex-col justify-center items-center border rounded-lg pt-10 p-4 relative z-2 min-w-full border-white'>
+                <div className='text-xl bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text font-semibold'>{event.title}</div>
+                <div className='min-w-full text-white'>
                     <p>{event.description}</p>
                 </div>
 
