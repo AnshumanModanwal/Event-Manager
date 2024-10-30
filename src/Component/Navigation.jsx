@@ -4,6 +4,7 @@ import { FaRegHandPeace } from "react-icons/fa6";
 import { useNavigate } from 'react-router-dom';
 import { signOut } from "firebase/auth"; // Import signOut from Firebase
 import { auth } from '../firebase';
+import logo from "../assets/logo-color.png"
 const Navigation = () => {
     const {user,logout} = useAuthStore()
     // console.log(user.photoURL)
@@ -41,7 +42,8 @@ const Navigation = () => {
             <p className='rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] hover:scale-110 cursor-pointer' onClick={handleLogout}>Logout</p>
         </>
     ) : (
-        <p>Please Log In !</p> 
+      <img src={logo} width="100px"/>
+
             )}
     </div>
 </div>
