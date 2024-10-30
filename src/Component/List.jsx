@@ -54,10 +54,13 @@ const List = () => {
   return (
     <div className='text--100    flex flex-col border-2 border-pure-greys-400 rounded-lg p-3 gap-10 md:!max-w-[50%] !items-center md:!justify-center'>
         <h1 className='md:text-4xl text-3xl text-white '>Scheduled <span className='bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text '>Events</span></h1>
-        <div className='flex justify-center items-center gap-3'>
+        <div className='flex justify-center items-center gap-3 flex-col '>
         {/* <TfiWrite className=' text-5xl hover:scale-110 cursor-pointer'/> */}
         {/* <p>Click to schedule event</p> */}
+        
         <Form dynamicButton={TfiWrite} size={"5"} />
+        <p className='bg-gradient-to-b from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-transparent bg-clip-text font-semibold sticky '>Add Events</p>
+        
 </div>
         <div className='h-0.5 w-full bg-pure-greys-400'></div>
 
