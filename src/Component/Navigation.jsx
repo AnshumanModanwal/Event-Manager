@@ -6,7 +6,7 @@ import { signOut } from "firebase/auth"; // Import signOut from Firebase
 import { auth } from '../firebase';
 import logo from "../assets/logo-color.png"
 const Navigation = () => {
-    const {user,logout} = useAuthStore()
+    const {user,logout,token} = useAuthStore()
     // console.log(user.photoURL)
 
     const navigate = useNavigate(); // Initialize navigate
@@ -33,7 +33,7 @@ const Navigation = () => {
    <p className='text-xl'><FaRegHandPeace/></p>
    </div>
     <div className='flex gap-2 md:gap-10 items-center'>
-    {user ? (
+    {token ? (
         <>
             
             {user.photoURL && (

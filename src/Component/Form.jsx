@@ -16,9 +16,9 @@ import { REACT_APP_BASE_URL } from '../services/defaultUrl'
 // } = endpoints
 
 const BASE_URL = REACT_APP_BASE_URL
-const Form = ({DynamicButton=TfiWrite, size,event, isClicked, setIsClicked}) => {
+const Form = ({DynamicButton=TfiWrite, size}) => {
 
-  console.log(isClicked)
+ 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const formatDateToLocal = (dateString) => {
@@ -26,8 +26,7 @@ const Form = ({DynamicButton=TfiWrite, size,event, isClicked, setIsClicked}) => 
     return date.toISOString().slice(0, 16); // Format to 'YYYY-MM-DDTHH:mm'
   }
 
- const {formData,setFormData,user,token} = useAuthStore()
-
+ const {formData,setFormData,user,token,isUpdate, currentEvent, setIsUpdate} = useAuthStore()
   const handleOnChange =(event)=>{
     const {name,value} = event.target;
     setFormData(name,value)
@@ -36,15 +35,14 @@ const Form = ({DynamicButton=TfiWrite, size,event, isClicked, setIsClicked}) => 
   
 // Populate formData when `event` is provided
 useEffect(() => {
-  if (isClicked) {
-    setFormData("topic", event.title || "")
-    setFormData("description", event.description || "")
-    setFormData("startTime", formatDateToLocal(event.startTime) || "")
-      setFormData("endTime", formatDateToLocal(event.endTime) || "")
+  if (isUpdate && currentEvent) {
+    setFormData("topic", currentEvent.title || "")
+    setFormData("description", currentEvent.description || "")
+    setFormData("startTime", formatDateToLocal(currentEvent.startTime) || "")
+      setFormData("endTime", formatDateToLocal(currentEvent.endTime) || "")
   }
-}, [setFormData])
+}, [isUpdate, currentEvent])
 
-console.log(event)
 
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
@@ -53,16 +51,31 @@ console.log(event)
     e.preventDefault(); // Prevent the default form submission
     console.log("before API call");
 
-   if(isClicked){
+   if(currentEvent){
     try {
       const response = await apiConnector("POST",REACT_APP_BASE_URL+"/update-event",{
-        eventId: event._id
+        eventId: currentEvent._id,
+        user,
+        formData
       })
+
+      if(response.status==200){
+        setFormData({
+          "topic":response.updatedEvent.title,
+          "description":response.updatedEvent.description,
+          "startTime":response.updatedEvent.startTime,
+          "endTime":response.updatedEvent.endTime,
+        })
+        
+      }
+      else{
+        alert("Failed to update event")
+      }
       
     } catch (error) {
-      
+      alert(error)
     }
-   setIsClicked(false)
+    setIsUpdate(false)
     closeModal();
    }
    else{
@@ -130,7 +143,7 @@ console.log(event)
           </label>
           <div className="flex gap-2 mt-4">
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" >
-             {isClicked?"Update": "Save"}
+             {isUpdate?"Update": "Save"}
             </button>
             <button type="button" onClick={closeModal} className="bg-gray-300 py-2 px-4 rounded hover:bg-gray-400">
               Cancel

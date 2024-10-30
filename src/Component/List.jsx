@@ -9,8 +9,14 @@ import { REACT_APP_BASE_URL } from '../services/defaultUrl';
 import DeleteForm from './DeleteForm';
 
 const List = () => {
-    const {user,formData,events,setEvents} = useAuthStore();
-const [isClicked, setIsClicked ] = useState(false);
+    const {user,formData,events,setEvents,setIsUpdate, setCurrentEvent} = useAuthStore();
+    
+    
+
+    const handleUpdateClick = (event) => {
+      setIsUpdate(true);
+      setCurrentEvent(event);
+    };
 
    
     useEffect(()=>{
@@ -42,10 +48,7 @@ const [isClicked, setIsClicked ] = useState(false);
     }
     },[user, setEvents,formData])
 
-const handleUpdate=()=>{
-    setIsClicked(true);
 
-}
 
     
   return (
@@ -74,7 +77,7 @@ const handleUpdate=()=>{
  <DeleteForm eventId={event._id}/>}
         
 </div>
-        <Form DynamicButton={MdUpdate} size={"2"} event={event} onClick={handleUpdate} isClicked={isClicked} setIsClicked={setIsClicked} />
+        <Form DynamicButton={MdUpdate} size={"2"} onClick={() => handleUpdateClick(event)} />
                     
                 </div>
 
