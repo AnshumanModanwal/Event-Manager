@@ -15,7 +15,7 @@ const List = () => {
 
     const handleUpdateClick = (event) => {
       setIsUpdate(true);
-      setCurrentEvent(event);
+     setCurrentEvent(event)
     };
 
    
@@ -46,7 +46,7 @@ const List = () => {
        if (user) {
         fetchData();
     }
-    },[user, setEvents,formData])
+    },[user,formData])
 
 
 
@@ -77,8 +77,10 @@ const List = () => {
  <DeleteForm eventId={event._id}/>}
         
 </div>
-        <Form DynamicButton={MdUpdate} size={"2"} onClick={() => handleUpdateClick(event)} />
+       <div className='' onClick={() => handleUpdateClick(event)}>
+       <Form DynamicButton={MdUpdate} size={"2"} event={event} />
                     
+       </div>
                 </div>
 
                 <div className='flex absolute inset-0 w-[100%] h-8 z-0 justify-around bg-[#D1D1D1] rounded-t-lg text-black text-sm items-center'>

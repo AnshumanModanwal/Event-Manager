@@ -6,14 +6,6 @@ import { apiConnector } from '../services/apiConnector'
 
 import { REACT_APP_BASE_URL } from '../services/defaultUrl'
 
-// import {endpoints} from "../services/api"
-
-
-// console.log("BASE_URL:", process.env.REACT_APP_BASE_URL);
-
-// const {
-//     CREATE_EVENT
-// } = endpoints
 
 const BASE_URL = REACT_APP_BASE_URL
 const Form = ({DynamicButton=TfiWrite, size}) => {
@@ -23,25 +15,46 @@ const Form = ({DynamicButton=TfiWrite, size}) => {
 
   const formatDateToLocal = (dateString) => {
     const date = new Date(dateString);
-    return date.toISOString().slice(0, 16); // Format to 'YYYY-MM-DDTHH:mm'
+    return date.toLocaleDateString(); // Format to 'YYYY-MM-DDTHH:mm'
   }
 
- const {formData,setFormData,user,token,isUpdate, currentEvent, setIsUpdate} = useAuthStore()
+ const {formData,setFormData,user,token,isUpdate, currentEvent, setIsUpdate,setCurrentEvent} = useAuthStore()
+
+//  console.log("event id", currentEvent)
   const handleOnChange =(event)=>{
     const {name,value} = event.target;
     setFormData(name,value)
+
+  }
+
+  const handleCancel=(e)=>{
+    e.preventDefault();
+    setCurrentEvent(null)
+    setFormData("title", "");
+    setFormData("description", "");
+    setFormData("startTime", "");
+    setFormData("endTime", "");
+ 
+
+    closeModal();
 
   }
   
 // Populate formData when `event` is provided
 useEffect(() => {
   if (isUpdate && currentEvent) {
-    setFormData("topic", currentEvent.title || "")
+    setFormData("title", currentEvent.title || "")
     setFormData("description", currentEvent.description || "")
     setFormData("startTime", formatDateToLocal(currentEvent.startTime) || "")
       setFormData("endTime", formatDateToLocal(currentEvent.endTime) || "")
   }
-}, [isUpdate, currentEvent])
+  else{
+    setFormData("title", "");
+  setFormData("description", "");
+  setFormData("startTime", "");
+  setFormData("endTime", "");
+  }
+}, [isUpdate, currentEvent ])
 
 
   const openModal = () => setModalIsOpen(true)
@@ -58,10 +71,11 @@ useEffect(() => {
         user,
         formData
       })
-
+     console.log(response, "response from backend")
+     setCurrentEvent(null)
       if(response.status==200){
         setFormData({
-          "topic":response.updatedEvent.title,
+          "title":response.updatedEvent.title,
           "description":response.updatedEvent.description,
           "startTime":response.updatedEvent.startTime,
           "endTime":response.updatedEvent.endTime,
@@ -92,7 +106,7 @@ useEffect(() => {
          
           // Close the modal and reset form data
           closeModal();
-          setFormData("topic", ""); // Reset topic
+          setFormData("title", ""); // Reset title
           setFormData("description", ""); // Reset description
           setFormData("startTime", ""); // Reset start time
           setFormData("endTime", ""); // Reset end time
@@ -106,7 +120,10 @@ useEffect(() => {
       console.error(error);
   }
     
-    
+  setFormData("title", "");
+  setFormData("description", "");
+  setFormData("startTime", "");
+  setFormData("endTime", "");
 
     closeModal();
    }
@@ -114,7 +131,7 @@ useEffect(() => {
 
   return (
     <div className="flex justify-center items-center gap-3">
-      <DynamicButton className={`text-${size}xl hover:scale-110 cursor-pointer text-[#D1D1D1]`}onClick={openModal} />
+      <DynamicButton className={`text-${size}xl hover:scale-110 cursor-pointer text-[#D1D1D1]`} onClick={openModal} />
 
       <Modal 
         isOpen={modalIsOpen}
@@ -126,8 +143,8 @@ useEffect(() => {
         <h2 className="text-2xl mb-4">Schedule Event</h2>
         <form className="flex flex-col gap-3" onSubmit={submitHandler}>
           <label>
-            Event Topic
-            <input type="text" className="border p-2 w-full rounded-md" placeholder="Enter event topic" onChange={handleOnChange} name='topic' value={formData.topic}/>
+            Event title
+            <input type="text" className="border p-2 w-full rounded-md" placeholder="Enter event title" onChange={handleOnChange} name='title' value={formData.title}/>
           </label>
           <label>
             Description
@@ -143,9 +160,9 @@ useEffect(() => {
           </label>
           <div className="flex gap-2 mt-4">
             <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" >
-             {isUpdate?"Update": "Save"}
+             {currentEvent?"Update": "Save"}
             </button>
-            <button type="button" onClick={closeModal} className="bg-gray-300 py-2 px-4 rounded hover:bg-gray-400">
+            <button type="button" onClick={handleCancel} className="bg-gray-300 py-2 px-4 rounded hover:bg-gray-400" >
               Cancel
             </button>
           </div>

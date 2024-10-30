@@ -5,7 +5,7 @@
 //   token: null,
  
 //   formData:{
-//     topic: '',
+//     title: '',
 //     description: '',
 //     startTime: '',
 //     endTime: ''
@@ -38,9 +38,9 @@ const useAuthStore = create(
     (set) => ({
       user: null,
       token: null,
-      formData: { topic: '', description: '', startTime: '', endTime: '' },
+      formData: { title: '', description: '', startTime: '', endTime: '' },
       events: [],
-      isUpdate: false,             
+        isUpdate: false,             
         currentEvent: null,          
         setIsUpdate: (status) => set({ isUpdate: status }),
         setCurrentEvent: (event) => set({ currentEvent: event }),

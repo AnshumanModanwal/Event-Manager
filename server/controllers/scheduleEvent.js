@@ -9,7 +9,7 @@ exports.scheduleEvent = async (req, res) => {
   const { user, formData } = req.body;
   console.log(user)
   const { uid, email, displayName, photoURL, providerId } = user;
-  const { topic, description, startTime, endTime } = formData;
+  const { title, description, startTime, endTime } = formData;
 
   try {
     // Find or create the user
@@ -29,7 +29,7 @@ exports.scheduleEvent = async (req, res) => {
     // Create the event associated with the user
     const newEvent = await Event.create({
       userId: existingUser._id,
-      title: topic,
+      title: title,
       description,
       startTime: new Date(startTime),
       endTime: new Date(endTime),

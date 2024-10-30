@@ -4,7 +4,7 @@ const User = require("../models/User");
 exports.updateEvent = async (req, res) => {
     try {
         const { user,eventId,formData } = req.body; 
-        const { topic, description, startTime, endTime } = formData;
+        const { title, description, startTime, endTime } = formData;
         const { uid } = user; // Extract userId and updatedData from request body
         let existingUser = await User.findOne({ uid });
         
@@ -19,7 +19,7 @@ exports.updateEvent = async (req, res) => {
 
         // Update the event with provided data
         const updatedData = {
-            title: topic || event.title, // Keep current value if no new value is provided
+            title: title || event.title, // Keep current value if no new value is provided
             description: description || event.description,
             startTime: startTime || event.startTime,
             endTime: endTime || event.endTime,
