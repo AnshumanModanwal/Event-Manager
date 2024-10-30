@@ -23,7 +23,8 @@ const DeleteForm = ({eventId}) => {
         if( response.status==200 )
 
         {
-            alert(response.message)
+            
+            alert(response.data.message)
             console.log("Event deleted successfully");
             setEvents(events.filter(event => event._id!== eventId))
             
