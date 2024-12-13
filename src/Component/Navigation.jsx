@@ -37,7 +37,7 @@ const Navigation = () => {
         <>
             
             {user.photoURL && (
-                <img src={user.photoURL} alt="User Profile" width="40" className="rounded-full" loading='lazy'/>
+                <img src={user.photoURL} alt="User Profile" width="40px" className="rounded-full" loading='lazy'/>
             )}
             <p className='rounded-[8px] border border-richblack-700 bg-richblack-800 px-[12px] py-[8px] hover:scale-110 cursor-pointer' onClick={handleLogout}>Logout</p>
         </>

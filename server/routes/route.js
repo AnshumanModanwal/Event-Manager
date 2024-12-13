@@ -14,11 +14,13 @@ const {
 const {
     deleteEvent
 }  = require("../controllers/deleteEvent");
+
+
 const { updateEvent } = require("../controllers/updateEvent");
 router.post("/schedule-event",scheduleEvent);
 router.post("/show-events",getEvents)
 router.post("/delete-event",deleteEvent)
 
-router.post("/update-event",updateEvent)
+router.put("/update-event",updateEvent)
 
 module.exports = router;

@@ -18,6 +18,7 @@ const GoogleLogin = () => {
         // User is signed in
         user.getIdToken().then(token => {
           login({ displayName: user.displayName, email: user.email, photoURL: user.photoURL }, token);
+          console.log("user photo url",user.photoURL);
           console.log("User already logged in:", user);
         });
       }
@@ -27,26 +28,31 @@ const GoogleLogin = () => {
   }, [auth, login]);
 
   const handleGoogleLogin = async () => {
-
     const provider = new GoogleAuthProvider();
-
+    provider.addScope('https://www.googleapis.com/auth/calendar.events'); // Request calendar permissions
+  
     try {
       const result = await signInWithPopup(auth, provider);
+      const token = result._tokenResponse.oauthAccessToken;
+      console.log(token);
       const user = result.user;
-      const token = await user.getIdToken();
-
-      login({ displayName: user.displayName, email: user.email, photoURL: user.photoURL,uid:user.uid,providerId:user.providerId }, token);
-
-      
-      navigate("/dashboard")
+      // const token = await user.getIdToken();
+  
+      // Save the user's token and details
+      login({ displayName: user.displayName, email: user.email, photoURL: user.photoURL, uid: user.uid }, token);
+  
+      // Navigate to the dashboard or wherever
+      navigate('/dashboard');
       alert('Logged in with Google successfully');
-
-      console.log(user.uid)
+  
+      console.log("Google UID:", user.uid);
+      console.log("OAuth Token:", token);
     } catch (error) {
       console.error("Error logging in with Google:", error);
       alert(error.message);
     }
   };
+  
 
 
   // GitHub login function

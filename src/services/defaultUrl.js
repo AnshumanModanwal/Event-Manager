@@ -1,1 +1,1 @@
-export const REACT_APP_BASE_URL = "https://event-manager-roan.vercel.app/api/v1"
+export const REACT_APP_BASE_URL = "http://localhost:4000/api/v1"

@@ -8,9 +8,12 @@ import { REACT_APP_BASE_URL } from '../services/defaultUrl'
 
 
 const BASE_URL = REACT_APP_BASE_URL
-const Form = ({DynamicButton=TfiWrite, size}) => {
+const Form = ({DynamicButton=TfiWrite, size,event}) => {
 
- 
+
+  console.log(event,"event coming frm list")
+
+
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const formatDateToLocal = (dateString) => {
@@ -66,7 +69,7 @@ useEffect(() => {
 
    if(currentEvent){
     try {
-      const response = await apiConnector("POST",REACT_APP_BASE_URL+"/update-event",{
+      const response = await apiConnector("PUT",REACT_APP_BASE_URL+"/update-event",{
         eventId: currentEvent._id,
         user,
         formData
@@ -98,6 +101,9 @@ useEffect(() => {
       const response = await apiConnector("POST", BASE_URL + "/schedule-event", {
           user,
           formData,
+          headers: { 'Content-Type': 'application/json' },
+          accessToken:token
+          
       });
 
       if (response.status === 201) { // Check for successful creation
