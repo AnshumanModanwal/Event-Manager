@@ -17,7 +17,7 @@ const generateAuthUrl = () => {
   });
 };
 
-const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+
 
 // Get the Access Token
 const getAccessToken = async (code) => {
